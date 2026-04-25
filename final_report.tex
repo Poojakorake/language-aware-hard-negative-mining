@@ -49,12 +49,13 @@ We trained and evaluated five ($\alpha$, $\beta$) configurations on Flickr30K an
 \section{Introduction}
 
 Vision-language contrastive learning~\cite{clip,align} trains a shared embedding space by pushing matched image-text pairs together and unmatched pairs apart.
-The quality of negative samples is decisive: \emph{easy} negatives provide little gradient signal, while \emph{hard} negatives—pairs that are similar but not matched—force the model to learn fine-grained distinctions.
+In practice, not all negatives are equally useful---if the model can already tell two items apart easily, that pair teaches it nothing.
+\emph{Hard} negatives, ones that look similar but are not actually matched, are what push the model to learn the subtle differences that matter.
 
 LLaVE~\cite{llave} introduced \emph{hardness-weighted} InfoNCE, where each negative's contribution to the loss is scaled by an exponential of its embedding similarity to the query.
 This dynamic weighting removes the need for a separate offline negative-mining stage and has shown strong results on standard retrieval benchmarks.
 
-However, computing hardness purely from the model's own embeddings creates a subtle failure mode.
+The problem is that using only the model's own embeddings to measure hardness can backfire.
 Two captions describing the same scene in different words—\textit{e.g.}, ``A dog runs through a park'' and ``A canine sprints across the grass''—may map to nearby points in embedding space.
 The model then treats these as \emph{hard} negatives even though they are semantically equivalent, wasting capacity on a distinctions without a difference.
 
