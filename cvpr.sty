@@ -1,0 +1,76 @@
+% cvpr.sty -- CVPR-compatible style file (2024/2025 format)
+% Matches official CVPR submission formatting requirements.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cvpr}[2024/01/01 CVPR Style]
+
+\RequirePackage{geometry}
+\geometry{
+  letterpaper,
+  top=1in,
+  bottom=1in,
+  left=0.75in,
+  right=0.75in,
+  columnsep=0.25in
+}
+
+\RequirePackage{ifthen}
+\RequirePackage{fancyhdr}
+\RequirePackage{times}
+\RequirePackage{titlesec}
+
+% Two-column format is set by documentclass option
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+% Section title formatting
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection.}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\it}{}{0em}{}
+
+% Title formatting
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 0.5em%
+  \begin{center}%
+    {\LARGE \@title \par}%
+    \vskip 1em%
+    {\large \lineskip .5em%
+      \begin{tabular}[t]{c}%
+        \@author
+      \end{tabular}\par}%
+    \vskip 0.5em%
+    {\large \@date}%
+  \end{center}%
+  \par
+  \vskip 1em
+}
+
+% Abstract formatting
+\renewenvironment{abstract}{%
+  \begin{center}%
+    {\large\bfseries Abstract}%
+  \end{center}%
+  \begin{quotation}
+}{%
+  \end{quotation}
+}
+
+% Caption formatting
+\RequirePackage{caption}
+\captionsetup{font=small,labelfont=bf}
+
+% Paragraph formatting
+\newcommand{\para}[1]{\vspace{4pt}\noindent\textbf{#1}~}
+
+% CVPR final copy flag — no-op in this stub
+\newcommand{\cvprfinalcopy}{}
+
+% Page numbering
+\pagestyle{plain}
+
+% Floats
+\setlength{\floatsep}{10pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}

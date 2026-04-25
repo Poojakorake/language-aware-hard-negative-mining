@@ -1,0 +1,22 @@
+# Generated caches (large .pt files)
+eval_cache/
+
+# Generated demo output images
+demo_output/
+
+# The full LLaVE codebase (separate repo: himsick/vision-aware-llave)
+CV-Project/
+
+# macOS metadata
+.DS_Store
+__pycache__/
+*.pyc
+
+# Intermediate LaTeX build files
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.synctex.gz
