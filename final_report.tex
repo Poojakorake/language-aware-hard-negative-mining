@@ -276,11 +276,11 @@ Our method does not require additional human annotations, making it broadly appl
 %-------------------------------------------------------------------------
 \section{Conclusion}
 
-We presented a language-aware hard negative mining strategy that augments embedding-space hardness with a frozen Sentence-BERT linguistic similarity signal.
-The combined hardness score prevents semantically equivalent captions from being treated as hard negatives.
-Our best-performing model ($\alpha{=}5$, $\beta{=}5$) achieved a 21.8\% relative improvement in Recall@10 (25.16\%$\to$30.64\%) and reduced the Median Rank from 47 to 33 on the Flickr30K 1K gallery, using no additional learnable parameters.
-An ablation across five ($\alpha$, $\beta$) configurations reveals that equal weighting provides the most robust retrieval signal and that excessively high combined weights lead to gradient conflict.
-The method is simple to integrate into any InfoNCE-based vision-language training pipeline and adds negligible overhead beyond a one-time pre-computation step.
+Adding a linguistic similarity term to LLaVE's hardness score turns out to be a meaningful improvement, but the hyperparameter balance matters more than we initially expected.
+Our best configuration ($\alpha{=}5$, $\beta{=}5$) improved Recall@10 by 21.8\% and cut the Median Rank from 47 to 33---but pushing both weights higher ($\alpha{=}9$, $\beta{=}5$) actually hurt performance, which we attribute to gradient conflict between the two loss terms.
+The practical takeaway is that equal weighting keeps both signals from dominating each other.
+Since the linguistic embeddings are pre-computed once before training, the overhead is minimal.
+Future work could look at learning $\alpha$ and $\beta$ during training rather than fixing them, or applying this idea to cross-lingual retrieval where caption paraphrasing is even more frequent.
 
 %-------------------------------------------------------------------------
 {\small
