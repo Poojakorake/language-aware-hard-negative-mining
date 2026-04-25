@@ -39,13 +39,10 @@ The University of Texas at Dallas \\
 
 %-------------------------------------------------------------------------
 \begin{abstract}
-Hard negative mining is central to learning discriminative vision-language embeddings.
-Existing approaches such as LLaVE compute hardness solely from embedding-space similarity,
-which can conflate visually distinct but semantically related negatives.
-We propose a simple yet effective extension that augments the hardness score with a \emph{linguistic similarity} term derived from a frozen Sentence-BERT model.
-The combined score $H_{i,j} = \alpha \cdot \text{sim}_\text{embed}(i,j) + \beta \cdot \text{sim}_\text{ling}(i,j)$ re-weights the contrastive loss denominator to penalise pairs that are both embedding-close \emph{and} textually similar, preventing the model from treating semantically equivalent captions as hard negatives.
-We evaluate on the Flickr30K 1K gallery using Recall@$K$ and Median Rank across five ($\alpha$, $\beta$) configurations.
-We identify an optimal balance at $\alpha{=}5$, $\beta{=}5$, which yields consistent gains over the embedding-only baseline, improving Recall@10 from 25.16\% to 30.64\% and reducing the Median Rank from 47 to 33.
+Contrastive vision-language models like CLIP rely on hard negatives to learn fine-grained distinctions, but current hardness scores only look at embedding-space distance.
+This means two captions that describe the same scene in different words---like ``a dog runs in the park'' and ``a canine sprints across the grass''---can be scored as hard negatives even though they are semantically identical.
+We extend LLaVE's hardness-weighted contrastive loss by adding a linguistic similarity term from a frozen Sentence-BERT model, giving the combined score $H_{i,j} = \alpha \cdot \text{sim}_\text{embed}(i,j) + \beta \cdot \text{sim}_\text{ling}(i,j)$.
+We trained and evaluated five ($\alpha$, $\beta$) configurations on Flickr30K and found that equal weighting ($\alpha{=}5$, $\beta{=}5$) works best, improving Recall@10 from 25.16\% to 30.64\% and cutting the Median Rank from 47 to 33.
 \end{abstract}
 
 %-------------------------------------------------------------------------
