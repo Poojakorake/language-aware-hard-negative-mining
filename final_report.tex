@@ -255,8 +255,8 @@ This effect is most visible when the linguistic similarity of near-duplicate cap
 \label{sec:discussion}
 
 \paragraph{Why frozen Sentence-BERT?}
-Using a frozen external encoder decouples the linguistic prior from the model being trained, avoiding the circular dependency where the hardness estimate changes as the model updates.
-It also adds no learnable parameters and minimal computational overhead (embeddings are pre-computed once).
+We froze Sentence-BERT rather than fine-tuning it because we needed a stable semantic signal---if the linguistic encoder updated during training, the hardness scores would drift and become a moving target.
+Keeping it frozen also means the embeddings are computed only once before training and looked up in $O(1)$ per batch, adding no learnable parameters or additional backward passes.
 
 \paragraph{Gradient Conflict at High $\alpha\beta$.}
 The High $\alpha\beta$ setting ($\alpha{=}9$, $\beta{=}5$) surprisingly underperforms Balanced ($\alpha{=}5$, $\beta{=}5$) despite sharing the same $\beta$.
